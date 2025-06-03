@@ -58,5 +58,7 @@ let drawGame = () => {
     return true;
 }
 
-
+let playerTurn = () => {
+    currentPlayer = (currentPlayer === PLAYER_X) ? PLAYER_O : PLAYER_X;
+}
 
