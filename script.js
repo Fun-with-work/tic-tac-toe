@@ -11,6 +11,7 @@ const PLAYER_X = 'X';
 const PLAYER_O = 'O';
 
 let currentPlayer = PLAYER_X;
+let gameOver = false;
 
 let displayBoard = (() => {
     console.clear();
@@ -61,4 +62,16 @@ let drawGame = () => {
 let playerTurn = () => {
     currentPlayer = (currentPlayer === PLAYER_X) ? PLAYER_O : PLAYER_X;
 }
+
+let newGame = () => {
+    gameBoard = [
+        [' ', ' ', ' '],
+        [' ', ' ', ' '],
+        [' ', ' ', ' ']
+    ];
+    currentPlayer = PLAYER_X;
+    gameOver = false;
+    console.log("Game has reset. To play again, enter ticTacToe.beginGame() and have fun!");
+}
+
 
