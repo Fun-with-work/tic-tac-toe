@@ -1,9 +1,9 @@
 // project tic tac toe
 
 let gameBoard = [
-        [' ', ' ', ' '],
-        [' ', ' ', ' '],
-        [' ', ' ', ' ']
+    [' ', ' ', ' '],
+    [' ', ' ', ' '],
+    [' ', ' ', ' ']
 ];
 
 
@@ -12,20 +12,21 @@ const PLAYER_O = 'O';
 
 let currentPlayer = PLAYER_X;
 
-let displayBoard =( () => {
+let displayBoard = (() => {
     console.clear();
     console.log(`
-        ${gameBoard[0][0]} | ${gameBoard[0][1]} | ${gameBoard[0][2]}
-        --+---+---
-        ${gameBoard[1][0]} | ${gameBoard[1][1]} | ${gameBoard[1][2]}
-        --+---+---
-        ${gameBoard[2][0]} | ${gameBoard[2][1]} | ${gameBoard[2][2]}
+        ${gameBoard[0][0]}   | ${gameBoard[0][1]} | ${gameBoard[0][2]}     (0) (1) (2)
+         ---+---+---
+        ${gameBoard[1][0]}   | ${gameBoard[1][1]} | ${gameBoard[1][2]}     (0) (1) (2)
+         ---+---+---
+        ${gameBoard[2][0]}   | ${gameBoard[2][1]} | ${gameBoard[2][2]}
+        Rows & Columns (0-2)
         `);
 })();
 
 let checkWin = () => {
     for (let i = 0; i < 3; i++) {
-        if (gameBoard[i][0] ===currentPlayer && gameBoard[i][1] === currentPlayer && gameBoard[i][2] === currentPlayer) {
+        if (gameBoard[i][0] === currentPlayer && gameBoard[i][1] === currentPlayer && gameBoard[i][2] === currentPlayer) {
             return true;
         }
     }
@@ -44,6 +45,17 @@ let checkWin = () => {
     }
 
     return false;
+}
+
+let drawGame = () => {
+    for ( let i = 0; i < 3; i++) {
+        for (j = 0; j< 3; j++) {
+            if (gameBoard[i][j] === "" ) {
+                return false
+            }
+        }
+    } 
+    return true;
 }
 
 
