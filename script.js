@@ -1,26 +1,27 @@
 // project tic tac toe
 
 let gameBoard = [
-    [' ', ' ', ' '],
-    [' ', ' ', ' '],
-    [' ', ' ', ' ']
+        [' ', ' ', ' '],
+        [' ', ' ', ' '],
+        [' ', ' ', ' ']
 ];
 
-const playerX = 'X';
-const playerO = 'O';
 
-let currentPlayer = playerX;
+const PLAYER_X = 'X';
+const PLAYER_O = 'O';
 
-let displayBoard = () => {
+let currentPlayer = PLAYER_X;
+
+let displayBoard =( () => {
     console.clear();
     console.log(`
         ${gameBoard[0][0]} | ${gameBoard[0][1]} | ${gameBoard[0][2]}
-        ---+---+---
+        --+---+---
         ${gameBoard[1][0]} | ${gameBoard[1][1]} | ${gameBoard[1][2]}
-        ---+---+---
+        --+---+---
         ${gameBoard[2][0]} | ${gameBoard[2][1]} | ${gameBoard[2][2]}
         `);
-}
+})();
 
 let checkWin = () => {
     for (let i = 0; i < 3; i++) {
