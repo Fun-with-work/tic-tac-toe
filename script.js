@@ -18,11 +18,11 @@ const ticTacToe = (function () {
     let displayBoard = () => {
         console.clear();
         console.log(`
-            ${gameBoard[0][0]}   | ${gameBoard[0][1]} | ${gameBoard[0][2]}     (0) (1) (2)
+            ${gameBoard[0][0]}  | ${gameBoard[0][1]} | ${gameBoard[0][2]}     (0) (1) (2)
             ---+---+---
-            ${gameBoard[1][0]}   | ${gameBoard[1][1]} | ${gameBoard[1][2]}     (0) (1) (2)
+            ${gameBoard[1][0]}  | ${gameBoard[1][1]} | ${gameBoard[1][2]}     (0) (1) (2)
             ---+---+---
-            ${gameBoard[2][0]}   | ${gameBoard[2][1]} | ${gameBoard[2][2]}
+            ${gameBoard[2][0]}  | ${gameBoard[2][1]} | ${gameBoard[2][2]}
             Rows & Columns (0-2)
             `);
     }
@@ -35,7 +35,7 @@ const ticTacToe = (function () {
         }
 
         for (let j = 0; j < 3; j++) {
-            if (gameBoard[j][0] === currentPlayer && gameBoard[j][1] === currentPlayer && gameBoard[j][2] === currentPlayer) {
+            if (gameBoard[0][j] === currentPlayer && gameBoard[1][j] === currentPlayer && gameBoard[2][j] === currentPlayer) {
                 return true;
             }
         }
