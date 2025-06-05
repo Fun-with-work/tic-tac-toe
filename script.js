@@ -1,27 +1,23 @@
 // project tic tac toe
 
-const ticTacToe = (function () {
 
-    let gameBoard = {
+let players ={
+    X : 'X',
+    O : 'O',
+};
 
-        board :[
-            [' ', ' ', ' '],
-            [' ', ' ', ' '],
-            [' ', ' ', ' ']
-        ]
-    }; 
-
-    let players ={
-        X : 'X',
-        O : 'O',
-    };
-
-    let currentPlayer = players.X;
+let gameBoard = {
     
-    let gameCheck = {
+    board :[
+        [' ', ' ', ' '],
+        [' ', ' ', ' '],
+        [' ', ' ', ' ']
+    ],
+    currentPlayer : players.X,
+    gameOver : false,
+}; 
 
-        gameOver : false,
-    }
+const game = (function () {
 
     let displayBoard = () => {
         console.clear();
@@ -37,20 +33,20 @@ const ticTacToe = (function () {
 
     let checkWin = () => {
         for (let i = 0; i < 3; i++) {
-            if (gameBoard.board[i][0] === currentPlayer && gameBoard.board[i][1] === currentPlayer && gameBoard.board[i][2] === currentPlayer) {
+            if (gameBoard.board[i][0] === gameBoard.currentPlayer && gameBoard.board[i][1] === gameBoard.currentPlayer && gameBoard.board[i][2] === gameBoard.currentPlayer) {
                 return true;
             }
         }
 
         for (let j = 0; j < 3; j++) {
-            if (gameBoard.board[0][j] === currentPlayer && gameBoard.board[1][j] === currentPlayer && gameBoard.board[2][j] === currentPlayer) {
+            if (gameBoard.board[0][j] === gameBoard.currentPlayer && gameBoard.board[1][j] === gameBoard.currentPlayer && gameBoard.board[2][j] === gameBoard.currentPlayer) {
                 return true;
             }
         }
 
         if (
-            (gameBoard.board[0][0] === currentPlayer && gameBoard.board[1][1] === currentPlayer && gameBoard.board[2][2] === currentPlayer) ||
-            (gameBoard.board[0][2] === currentPlayer && gameBoard.board[1][1] === currentPlayer && gameBoard.board[2][0] === currentPlayer)
+            (gameBoard.board[0][0] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][2] === gameBoard.currentPlayer) ||
+            (gameBoard.board[0][2] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][0] === gameBoard.currentPlayer)
         ) {
             return true;
         }
@@ -70,7 +66,7 @@ const ticTacToe = (function () {
     }
 
     let switchPlayer = () => {
-        currentPlayer = (currentPlayer === players.X) ? players.O : players.X;
+        gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.O : players.X;
     }
 
     let resetGame = () => {
@@ -79,14 +75,14 @@ const ticTacToe = (function () {
             [' ', ' ', ' '],
             [' ', ' ', ' ']
         ];
-        currentPlayer = players.X;
-        gameCheck.gameOver = false;
-        console.log("Game has reset. To play again, enter ticTacToe.beginGame() and have fun!");
+        gameBoard.currentPlayer = players.X;
+        gameBoard.gameOver = false;
+        console.log("Game has reset. To play again, enter game.beginGame() and have fun!");
     }
 
-    let makeMove = (row, col) => {
-        if (gameCheck.gameOver) {
-            console.log("Game over. Call ticTacToe.beginGame() to start again.");
+    let makeYourMove = (row, col) => {
+        if (gameBoard.gameOver) {
+            console.log("Game over. Call game.beginGame() to start again.");
             return;
         }
 
@@ -100,32 +96,32 @@ const ticTacToe = (function () {
             return;
         }
 
-        gameBoard.board[row][col] = currentPlayer;
+        gameBoard.board[row][col] = gameBoard.currentPlayer;
         displayBoard();
 
         if (checkWin()) {
-            console.log(`🎉 Player ${currentPlayer} wins! Congratulations! 🎉 `);
-            gameCheck.gameOver = true;
+            console.log(`🎉 Player ${gameBoard.currentPlayer} wins! Congratulations! 🎉 `);
+            gameBoard.gameOver = true;
         } else if (checkDraw()) {
             console.log("It's a draw! 🤝");
-            gameCheck.gameOver = true;
+            gameBoard.gameOver = true;
         } else { 
             switchPlayer();
-        console.log(`It's Player ${currentPlayer}'s turn. Use ticTacToe.makeMove(row, col)`);
+        console.log(`It's Player ${gameBoard.currentPlayer}'s turn. Use game.makeYourMove(row, col)`);
         }
     }
 
         function startGame() {
             resetGame();
             displayBoard();
-            console.log(`Game started! Player ${currentPlayer}'s turn. Use ticTacToe.makeMove(row, col)`);
-            console.log("Example: ticTacToe.makeMove(0, 0)");
+            console.log(`Game started! Player ${gameBoard.currentPlayer}'s turn. Use game.makeYourMove(row, col)`);
+            console.log("Example: game.makeYourMove(0, 0)");
         }
 
 
         return {
             startGame: startGame,
-            makeMove: makeMove,
+            makeYourMove: makeYourMove,
 
     };
 
