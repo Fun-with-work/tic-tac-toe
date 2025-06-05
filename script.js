@@ -17,7 +17,11 @@ const ticTacToe = (function () {
     };
 
     let currentPlayer = players.X;
-    let gameOver = false;
+    
+    let gameCheck = {
+
+        gameOver : false,
+    }
 
     let displayBoard = () => {
         console.clear();
@@ -76,12 +80,12 @@ const ticTacToe = (function () {
             [' ', ' ', ' ']
         ];
         currentPlayer = players.X;
-        gameOver = false;
+        gameCheck.gameOver = false;
         console.log("Game has reset. To play again, enter ticTacToe.beginGame() and have fun!");
     }
 
     let makeMove = (row, col) => {
-        if (gameOver) {
+        if (gameCheck.gameOver) {
             console.log("Game over. Call ticTacToe.beginGame() to start again.");
             return;
         }
@@ -101,10 +105,10 @@ const ticTacToe = (function () {
 
         if (checkWin()) {
             console.log(`🎉 Player ${currentPlayer} wins! Congratulations! 🎉 `);
-            gameOver = true;
+            gameCheck.gameOver = true;
         } else if (checkDraw()) {
             console.log("It's a draw! 🤝");
-            gameOver = true;
+            gameCheck.gameOver = true;
         } else { 
             switchPlayer();
         console.log(`It's Player ${currentPlayer}'s turn. Use ticTacToe.makeMove(row, col)`);
