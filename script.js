@@ -2,47 +2,51 @@
 
 const ticTacToe = (function () {
 
-    let gameBoard = [
-        [' ', ' ', ' '],
-        [' ', ' ', ' '],
-        [' ', ' ', ' ']
-    ];
+    let gameBoard = {
 
+        board :[
+            [' ', ' ', ' '],
+            [' ', ' ', ' '],
+            [' ', ' ', ' ']
+        ]
+    }; 
 
-    const PLAYER_X = 'X';
-    const PLAYER_O = 'O';
+    let players ={
+        X : 'X',
+        O : 'O',
+    };
 
-    let currentPlayer = PLAYER_X;
+    let currentPlayer = players.X;
     let gameOver = false;
 
     let displayBoard = () => {
         console.clear();
         console.log(`
-            ${gameBoard[0][0]}  | ${gameBoard[0][1]} | ${gameBoard[0][2]}     (0) (1) (2)
+            ${gameBoard.board[0][0]}  | ${gameBoard.board[0][1]} | ${gameBoard.board[0][2]}     (0) (1) (2)
             ---+---+---
-            ${gameBoard[1][0]}  | ${gameBoard[1][1]} | ${gameBoard[1][2]}     (0) (1) (2)
+            ${gameBoard.board[1][0]}  | ${gameBoard.board[1][1]} | ${gameBoard.board[1][2]}     (0) (1) (2)
             ---+---+---
-            ${gameBoard[2][0]}  | ${gameBoard[2][1]} | ${gameBoard[2][2]}
+            ${gameBoard.board[2][0]}  | ${gameBoard.board[2][1]} | ${gameBoard.board[2][2]}
             Rows & Columns (0-2)
             `);
     }
 
     let checkWin = () => {
         for (let i = 0; i < 3; i++) {
-            if (gameBoard[i][0] === currentPlayer && gameBoard[i][1] === currentPlayer && gameBoard[i][2] === currentPlayer) {
+            if (gameBoard.board[i][0] === currentPlayer && gameBoard.board[i][1] === currentPlayer && gameBoard.board[i][2] === currentPlayer) {
                 return true;
             }
         }
 
         for (let j = 0; j < 3; j++) {
-            if (gameBoard[0][j] === currentPlayer && gameBoard[1][j] === currentPlayer && gameBoard[2][j] === currentPlayer) {
+            if (gameBoard.board[0][j] === currentPlayer && gameBoard.board[1][j] === currentPlayer && gameBoard.board[2][j] === currentPlayer) {
                 return true;
             }
         }
 
         if (
-            (gameBoard[0][0] === currentPlayer && gameBoard[1][1] === currentPlayer && gameBoard[2][2] === currentPlayer) ||
-            (gameBoard[0][2] === currentPlayer && gameBoard[1][1] === currentPlayer && gameBoard[2][0] === currentPlayer)
+            (gameBoard.board[0][0] === currentPlayer && gameBoard.board[1][1] === currentPlayer && gameBoard.board[2][2] === currentPlayer) ||
+            (gameBoard.board[0][2] === currentPlayer && gameBoard.board[1][1] === currentPlayer && gameBoard.board[2][0] === currentPlayer)
         ) {
             return true;
         }
@@ -53,7 +57,7 @@ const ticTacToe = (function () {
     let checkDraw = () => {
         for (let i = 0; i < 3; i++) {
             for (j = 0; j < 3; j++) {
-                if (gameBoard[i][j] === " ") {
+                if (gameBoard.board[i][j] === " ") {
                     return false
                 }
             }
@@ -62,16 +66,16 @@ const ticTacToe = (function () {
     }
 
     let switchPlayer = () => {
-        currentPlayer = (currentPlayer === PLAYER_X) ? PLAYER_O : PLAYER_X;
+        currentPlayer = (currentPlayer === players.X) ? players.O : players.X;
     }
 
     let resetGame = () => {
-        gameBoard = [
+        gameBoard.board = [
             [' ', ' ', ' '],
             [' ', ' ', ' '],
             [' ', ' ', ' ']
         ];
-        currentPlayer = PLAYER_X;
+        currentPlayer = players.X;
         gameOver = false;
         console.log("Game has reset. To play again, enter ticTacToe.beginGame() and have fun!");
     }
@@ -87,12 +91,12 @@ const ticTacToe = (function () {
             return;
         }
 
-        if (gameBoard[row][col] !== ' ') {
+        if (gameBoard.board[row][col] !== ' ') {
             console.log(`Spot (${row}, ${col} ) is already taken. Please choose an empty spot.`);
             return;
         }
 
-        gameBoard[row][col] = currentPlayer;
+        gameBoard.board[row][col] = currentPlayer;
         displayBoard();
 
         if (checkWin()) {
