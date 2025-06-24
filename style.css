@@ -1,0 +1,54 @@
+* {
+    margin: 0px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(45, 46, 45);
+
+}
+.scoreboard {
+    background-color:  rgb(220, 209, 172);
+    padding: 1rem;
+    width: 30%;
+    margin: 2rem;
+    font-size: 2rem;
+}
+
+
+.section {
+    border: 2rem solid rgb(233, 214, 151);
+    width: 55%;
+    height: auto;
+    border-radius: 2rem;
+    background-color:  rgb(236, 218, 160);
+    margin: auto;
+}
+
+.display-board {
+    border: 1rem solid rgb(81, 118, 86);
+
+    /* width: 50%; */
+    /* height: 50%; */
+    /* padding: 5rem; */
+    border-radius: 0.6rem;
+    background-color:  rgb(81, 118, 86);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.4rem;
+}
+
+.tile {
+    /* border: 1rem solid black; */
+    background-image: url("wood-grain.png"); 
+    /* background-color: rgba(185, 143, 114, 0.996); */
+    padding: 3rem;
+}
+
+button {
+    padding: 1rem;
+    background-color: rgb(117, 214, 167);
+    font-size: 1rem;
+}
+
