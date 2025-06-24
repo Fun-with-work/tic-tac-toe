@@ -1,5 +1,5 @@
-// project tic tac toe
-
+let score_board = document.getElementsByClassName("scoreboard");
+let displayBoard = document.getElementsByClassName("display-board");
 
 let players ={
     X : 'X',
@@ -19,7 +19,7 @@ let gameBoard = {
 
 const game = (function () {
 
-    let displayBoard = () => {
+    displayBoard = () => {
         console.clear();
         console.log(`
             ${gameBoard.board[0][0]}  | ${gameBoard.board[0][1]} | ${gameBoard.board[0][2]}     (0) (1) (2)
