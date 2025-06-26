@@ -2,8 +2,8 @@ let score_board = document.getElementsByClassName("scoreboard");
 let displayBoard = document.getElementsByClassName("display-board");
 
 let players ={
-    X : 'X',
-    O : 'O',
+    X : '❌',
+    O : '🟣',
 };
 
 let gameBoard = {
