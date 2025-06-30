@@ -63,14 +63,26 @@ body {
     font-size: 1.7rem;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: radial-gradient(circle at 2rem 2rem, #e9bb77, #bf9b7ba0);
-    border: 0.2rem solid #987747;
+    border: 0.6rem solid #987747;
+}
+.heading {
+    padding-bottom: 0.5rem;
+    text-align: center;
+}
+
+.titles {
+    list-style: none;
+    font-size: 1.2rem;    
+    display: flex;
+    justify-content: space-between;
 }
 
 #players {
     padding: 0.4rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
     background-color: #e7c99c;
-    width: 10rem;
+    width: 8rem;
+    border: 0.1rem solid #987747;
 }
 
 button {
