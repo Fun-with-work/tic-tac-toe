@@ -1,5 +1,35 @@
-let score_board = document.getElementsByClassName("scoreboard");
-let displayBoard = document.getElementsByClassName("display-board");
+let board = document.getElementsByClassName("display-board");
+let player1 = document.getElementById("player1");
+let player2 = document.getElementById("player2");
+
+
+// let score_board = document.getElementsByClassName("scoreboard");
+
+player1.addEventListener("click", player1_name);
+player2.addEventListener("click", player2_name);
+
+function player1_name() {
+    let person1 = prompt("Enter name for player 1", "Player 1");
+    if (person1 == null || person1 ==" ") {
+        alert("cancelled");
+    } else { 
+        player1.value = person1;
+    }
+
+}
+
+function player2_name() {
+let person2 = prompt("Enter name for player 2", "Player 2");
+    if (person2 == null || person2 ==" ") {
+        alert("cancelled");
+    } else { 
+        player2.value = person2;
+    }}
+
+let wins1 = document.createElement("ul");
+
+
+
 
 let players ={
     X : '❌',
@@ -7,7 +37,6 @@ let players ={
 };
 
 let gameBoard = {
-    
     board :[
         [' ', ' ', ' '],
         [' ', ' ', ' '],
@@ -16,6 +45,10 @@ let gameBoard = {
     currentPlayer : players.X,
     gameOver : false,
 }; 
+
+// player_1.textContent= 'Aneela';
+
+board.textContent = '🟣';
 
 const game = (function () {
 
