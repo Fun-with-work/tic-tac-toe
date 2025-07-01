@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Tic Tac Toe</title>
+    <script src="script.js" defer></script>
+    <link rel="icon" type="image/svg+xml" sizes="any"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏁</text></svg>" />
+    <title>play</title>
 </head>
-<body>
-        
-    <div class="section">
 
+<body>
+
+    <div class="section">
         <div class="display-board">
-            <div class="tile">❌</div>
+            <div class="tile"></div>
             <div class="tile">🟣</div>
             <div class="tile">❌</div>
             <div class="tile">🟣</div>
@@ -25,19 +29,35 @@
 
     <div class="container">
         <div class="scoreboard">
-            <div class="heading">Scoreboard</div>
-            <ul class="titles">
-                <li>Player names</li>
-                <li>Wins / Losses</li>
-                <li>Total Wins</li>
-            </ul>
-            <input type="text" id="players" name="player1" placeholder="player 1" ><br>
-
-
-            <input type="text" id="players" name="player2" placeholder="player 2" ><br>
+            <h4 class="heading">Scoreboard</h4>
+            <table>
+                <tr class="titles">
+                    <td>Player names</td>
+                    <td>Wins</td>
+                    <td>Losses</td>
+                    <td>Total Wins</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="player1" name="player1" placeholder="click to add player 1">
+                    </td>
+                    <td class="win1" class="scores"></td>
+                    <td class="loss1" class="scores"></td>
+                    <td class="total">Total</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="player2" name="player2" placeholder="click to add player 2">
+                    </td>
+                    <td class="win2" class="scores"></td>
+                    <td class="loss2" class="scores"></td>
+                    <td class="total">Total</td>
+                </tr>
+            </table>
 
         </div>
         <button class="start">Restart</button>
     </div>
 </body>
+
 </html>
