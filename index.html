@@ -15,19 +15,21 @@
 
     <div class="section">
         <div class="display-board">
-            <div class="tile"></div>
-            <div class="tile">🟣</div>
-            <div class="tile">❌</div>
-            <div class="tile">🟣</div>
-            <div class="tile">❌</div>
-            <div class="tile">🟣</div>
-            <div class="tile">❌</div>
-            <div class="tile">🟣</div>
-            <div class="tile">❌</div>
+            <div class="tile row1">❌</div>
+            <div class="tile row1">🟣</div>
+            <div class="tile row1">❌</div>
+            <div class="tile row2">🟣</div>
+            <div class="tile row2">❌</div>
+            <div class="tile row2">🟣</div>
+            <div class="tile row3">❌</div>
+            <div class="tile row3">🟣</div>
+            <div class="tile row3">❌</div>
         </div>
     </div>
 
     <div class="container">
+        <button id="clear">clear</button>
+        <button id="start">Restart</button>
         <div class="scoreboard">
             <h4 class="heading">Scoreboard</h4>
             <table>
@@ -41,22 +43,22 @@
                     <td>
                         <input type="text" id="player1" name="player1" placeholder="click to add player 1">
                     </td>
-                    <td class="win1" class="scores"></td>
-                    <td class="loss1" class="scores"></td>
-                    <td class="total">Total</td>
+                    <td class="win1 scores"></td>
+                    <td class="loss1 scores"></td>
+                    <td class="total" >Total</td>
                 </tr>
                 <tr>
                     <td>
                         <input type="text" id="player2" name="player2" placeholder="click to add player 2">
                     </td>
-                    <td class="win2" class="scores"></td>
-                    <td class="loss2" class="scores"></td>
-                    <td class="total">Total</td>
+                    <td class="win2 scores"></td>
+                    <td class="loss2 scores"></td>
+                    <td class="total" >Total</td>
                 </tr>
             </table>
 
         </div>
-        <button class="start">Restart</button>
+        
     </div>
 </body>
 
