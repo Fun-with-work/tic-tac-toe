@@ -1,6 +1,11 @@
 let board = document.getElementsByClassName("display-board");
+let tile = document.getElementsByClassName("tile");
+const tileRow1 = document.getElementsByClassName("row1");
+const tileRow2 = document.getElementsByClassName("row2");
+const tileRow3 = document.getElementsByClassName("row3");
 let player1 = document.getElementById("player1");
 let player2 = document.getElementById("player2");
+let startButton = document.getElementById("start");
 
 
 // let score_board = document.getElementsByClassName("scoreboard");
@@ -10,68 +15,66 @@ player2.addEventListener("click", player2_name);
 
 function player1_name() {
     let person1 = prompt("Enter name for player 1", "Player 1");
-    if (person1 == null || person1 ==" ") {
+    if (person1 == null || person1 === "") {
         alert("cancelled");
-    } else { 
+    } else {
         player1.value = person1;
     }
-
 }
 
 function player2_name() {
-let person2 = prompt("Enter name for player 2", "Player 2");
-    if (person2 == null || person2 ==" ") {
+    let person2 = prompt("Enter name for player 2", "Player 2");
+    if (person2 == null || person2 === "") {
         alert("cancelled");
-    } else { 
+    } else {
         player2.value = person2;
-    }}
+    }
+}
 
 let wins1 = document.createElement("ul");
 
-
-
-
-let players ={
-    X : '❌',
-    O : '🟣',
+let players = {
+    X: '❌',
+    O: '🟣',
 };
 
 let gameBoard = {
-    board :[
-        [' ', ' ', ' '],
-        [' ', ' ', ' '],
-        [' ', ' ', ' ']
+    board : [
+        Array.from(tileRow1),
+        Array.from(tileRow2),
+        Array.from(tileRow3),
     ],
-    currentPlayer : players.X,
-    gameOver : false,
-}; 
 
-// player_1.textContent= 'Aneela';
+    currentPlayer: players.X,
+    gameOver: false,
+};
+console.log(gameBoard.board);
 
-board.textContent = '🟣';
+// gameBoard.board[0].textContent = ' ';
+
 
 const game = (function () {
 
     displayBoard = () => {
-        console.clear();
-        console.log(`
-            ${gameBoard.board[0][0]}  | ${gameBoard.board[0][1]} | ${gameBoard.board[0][2]}     (0) (1) (2)
-            ---+---+---
-            ${gameBoard.board[1][0]}  | ${gameBoard.board[1][1]} | ${gameBoard.board[1][2]}     (0) (1) (2)
-            ---+---+---
-            ${gameBoard.board[2][0]}  | ${gameBoard.board[2][1]} | ${gameBoard.board[2][2]}
-            Rows & Columns (0-2)
-            `);
+        // console.clear();
+        // console.log(`
+        //     ${gameBoard.board[0][0]}  | ${gameBoard.board[0][1]} | ${gameBoard.board[0][2]}     (0) (1) (2)
+        //     ---+---+---
+        //     ${gameBoard.board[1][0]}  | ${gameBoard.board[1][1]} | ${gameBoard.board[1][2]}     (0) (1) (2)
+        //     ---+---+---
+        //     ${gameBoard.board[2][0]}  | ${gameBoard.board[2][1]} | ${gameBoard.board[2][2]}
+        //     Rows & Columns (0-2)
+        //     `);
     }
 
     let checkWin = () => {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i ++) {
             if (gameBoard.board[i][0] === gameBoard.currentPlayer && gameBoard.board[i][1] === gameBoard.currentPlayer && gameBoard.board[i][2] === gameBoard.currentPlayer) {
                 return true;
             }
         }
 
-        for (let j = 0; j < 3; j++) {
+        for (let j = 0; j < 3; j ++) {
             if (gameBoard.board[0][j] === gameBoard.currentPlayer && gameBoard.board[1][j] === gameBoard.currentPlayer && gameBoard.board[2][j] === gameBoard.currentPlayer) {
                 return true;
             }
@@ -79,7 +82,7 @@ const game = (function () {
 
         if (
             (gameBoard.board[0][0] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][2] === gameBoard.currentPlayer) ||
-            (gameBoard.board[0][2] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][0] === gameBoard.currentPlayer)
+            (gameBoard.board[0[2] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][0] === gameBoard.currentPlayer)
         ) {
             return true;
         }
@@ -88,11 +91,10 @@ const game = (function () {
     }
 
     let checkDraw = () => {
-        for (let i = 0; i < 3; i++) {
-            for (j = 0; j < 3; j++) {
-                if (gameBoard.board[i][j] === " ") {
-                    return false
-                }
+        for (let i = 0; i < 9; i++) {
+
+            if (gameBoard.board[i] === " ") {
+                return false
             }
         }
         return true;
@@ -102,16 +104,18 @@ const game = (function () {
         gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.O : players.X;
     }
 
-    let resetGame = () => {
-        gameBoard.board = [
-            [' ', ' ', ' '],
-            [' ', ' ', ' '],
-            [' ', ' ', ' ']
-        ];
+    startButton.addEventListener("click", resetGame);
+
+    function resetGame() {
+        for (i = 0; i < 9; i++) {
+            gameBoard.board[i].textContent = " ";
+        }
         gameBoard.currentPlayer = players.X;
         gameBoard.gameOver = false;
-        console.log("Game has reset. To play again, enter game.beginGame() and have fun!");
+
     }
+
+
 
     let makeYourMove = (row, col) => {
         if (gameBoard.gameOver) {
@@ -138,23 +142,23 @@ const game = (function () {
         } else if (checkDraw()) {
             console.log("It's a draw! 🤝");
             gameBoard.gameOver = true;
-        } else { 
+        } else {
             switchPlayer();
-        console.log(`It's Player ${gameBoard.currentPlayer}'s turn. Use game.makeYourMove(row, col)`);
+            console.log(`It's Player ${gameBoard.currentPlayer}'s turn. Use game.makeYourMove(row, col)`);
         }
     }
 
-        function startGame() {
-            resetGame();
-            displayBoard();
-            console.log(`Game started! Player ${gameBoard.currentPlayer}'s turn. Use game.makeYourMove(row, col)`);
-            console.log("Example: game.makeYourMove(0, 0)");
-        }
+    function startGame() {
+        resetGame();
+        displayBoard();
+        console.log(`Game started! Player ${gameBoard.currentPlayer}'s turn. Use game.makeYourMove(row, col)`);
+        console.log("Example: game.makeYourMove(0, 0)");
+    }
 
 
-        return {
-            startGame: startGame,
-            makeYourMove: makeYourMove,
+    return {
+        startGame: startGame,
+        makeYourMove: makeYourMove,
 
     };
 
