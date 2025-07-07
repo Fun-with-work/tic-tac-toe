@@ -6,7 +6,7 @@
 
 body {
     background-color: rgb(131, 134, 131);
-
+    height: 100vh;
 }
 
 
@@ -56,18 +56,21 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 5fr;
+    grid-template-rows: repeat(1fr);
+    
 }
 
 .scoreboard {
     background-color: rgb(202, 164, 124);
     padding: 1rem;
-    width: 40rem;
+    width: 45rem;
     margin: 2rem;
     font-size: 2rem;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: radial-gradient(circle at 2rem 2rem, #e9bb77, #bf9b7ba0);
     border: 0.6rem solid #987747;
+    grid-column: 3 / 4 ;
 }
 .heading {
     padding-bottom: 0.8rem;
@@ -98,15 +101,38 @@ table {
     padding: 0.4rem;
     font-size: 1.2rem;
     background-color:rgb(202, 164, 124);
-    width: 5rem;
+    width: 4rem;
+    height: 2.4rem;
     border: 0.1rem solid #987747;
 }
 
 .total {
     float: right;
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    color: rgb(81, 80, 80);
+    background-color:#bf9b7ba0;
+    width: 5rem;
+    height: 2.4rem;
+    border: 0.1rem solid #987747;
 }
 
-button {
+
+#clear {
+    display: block;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    background-color: black;
+    margin: auto;
+    background: radial-gradient(circle at 2rem 2rem, #f3e5c9, #000);
+    font-size: 1.8rem;
+    font-weight: bolder;
+    grid-column: 1 / 2;
+    border: 0.2rem solid #987747;
+}
+
+#start {
     display: block;
     width: 8rem;
     height: 8rem;
@@ -114,7 +140,9 @@ button {
     background-color: black;
     margin: auto;
     background: radial-gradient(circle at 2rem 2rem, #7fc384, #000);
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bolder;
     border: 0.2rem solid #987747;
+    grid-column: 2 / 3;
 }
+
