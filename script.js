@@ -1,4 +1,4 @@
-let board = document.getElementsByClassName("display-board");
+let boardElement = document.getElementsByClassName("display-board");
 let tile = document.getElementsByClassName("tile");
 const tileRow1 = document.getElementsByClassName("row1");
 const tileRow2 = document.getElementsByClassName("row2");
@@ -6,7 +6,6 @@ const tileRow3 = document.getElementsByClassName("row3");
 let player1 = document.getElementById("player1");
 let player2 = document.getElementById("player2");
 let startButton = document.getElementById("start");
-
 
 // let score_board = document.getElementsByClassName("scoreboard");
 
@@ -31,93 +30,120 @@ function player2_name() {
     }
 }
 
-let wins1 = document.createElement("ul");
+// let wins1 = document.createElement("ul");
 
 let players = {
     X: '❌',
     O: '🟣',
+    EMPTY: ' ',
 };
-
-let gameBoard = {
-    board : [
-        Array.from(tileRow1),
-        Array.from(tileRow2),
-        Array.from(tileRow3),
-    ],
-
-    currentPlayer: players.X,
-    gameOver: false,
-};
-console.log(gameBoard.board);
-
-// gameBoard.board[0].textContent = ' ';
-
 
 const game = (function () {
+    let logicalBoard = [
+        [players.EMPTY, players.EMPTY, players.EMPTY,],
+        [players.EMPTY, players.EMPTY, players.EMPTY,],
+        [players.EMPTY, players.EMPTY, players.EMPTY,],
+    ];
+
+    let gameBoard = {
+        htmlTiles: [
+            Array.from(tileRow1),
+            Array.from(tileRow2),
+            Array.from(tileRow3),
+        ],
+
+        currentPlayer: players.X,
+        gameOver: false,
+    };
+    // console.log(gameBoard.htmlTiles);
+
 
     displayBoard = () => {
-        // console.clear();
-        // console.log(`
-        //     ${gameBoard.board[0][0]}  | ${gameBoard.board[0][1]} | ${gameBoard.board[0][2]}     (0) (1) (2)
-        //     ---+---+---
-        //     ${gameBoard.board[1][0]}  | ${gameBoard.board[1][1]} | ${gameBoard.board[1][2]}     (0) (1) (2)
-        //     ---+---+---
-        //     ${gameBoard.board[2][0]}  | ${gameBoard.board[2][1]} | ${gameBoard.board[2][2]}
-        //     Rows & Columns (0-2)
-        //     `);
-    }
+        for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+                gameBoard.htmlTiles[r][c].textContent = logicalBoard[r][c];
+            }
+        }
 
-    let checkWin = () => {
-        for (let i = 0; i < 3; i ++) {
-            if (gameBoard.board[i][0] === gameBoard.currentPlayer && gameBoard.board[i][1] === gameBoard.currentPlayer && gameBoard.board[i][2] === gameBoard.currentPlayer) {
+        // console.log(`
+        //     ${gameBoard.htmlTiles[0][0]}  | ${logicalBoard[0][1]} | ${logicalBoard[0][2]}     (0) (1) (2)
+        //     ---+---+---
+        //     ${logicalBoard[1][0]}  | ${logicalBoard[1][1]} | ${logicalBoard[1][2]}     (0) (1) (2)
+        //     ---+---+---
+        //     $logicalBoard[2][0]}  | ${logicalBoard[2][1]} | ${logicalBoard[2][2]}
+        //     `);
+    };
+
+    const checkWin = () => {
+        for (let i = 0; i < 3; i++) {
+            if (logicalBoard[i][0] === gameBoard.currentPlayer && logicalBoard[i][1] === gameBoard.currentPlayer && logicalBoard[i][2] === gameBoard.currentPlayer &&
+            gameBoard.currentPlayer != players.EMPTY
+            ) {
                 return true;
             }
         }
 
-        for (let j = 0; j < 3; j ++) {
-            if (gameBoard.board[0][j] === gameBoard.currentPlayer && gameBoard.board[1][j] === gameBoard.currentPlayer && gameBoard.board[2][j] === gameBoard.currentPlayer) {
+        for (let j = 0; j < 3; j++) {
+            if (logicalBoard[0][j] === gameBoard.currentPlayer && logicalBoard[1][j] === gameBoard.currentPlayer && logicalBoard[2][j] === gameBoard.currentPlayer &&
+            gameBoard.currentPlayer != players.EMPTY 
+            ) {
                 return true;
             }
         }
 
         if (
-            (gameBoard.board[0][0] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][2] === gameBoard.currentPlayer) ||
-            (gameBoard.board[0[2] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][0] === gameBoard.currentPlayer)
+            (logicalBoard[0][0] === gameBoard.currentPlayer && logicalBoard[1][1] === gameBoard.currentPlayer && logicalBoard[2][2] === gameBoard.currentPlayer) ||
+            (logicalBoard[0[2] === gameBoard.currentPlayer && logicalBoard[1][1] === gameBoard.currentPlayer && logicalBoard[2][0] === gameBoard.currentPlayer)
         ) {
             return true;
         }
 
         return false;
-    }
+    };
 
-    let checkDraw = () => {
-        for (let i = 0; i < 9; i++) {
+    const checkDraw = () => {
+        for (let i = 0; i < 3; i++) {
+            for (j = 0; j < 3; J++) {
 
-            if (gameBoard.board[i] === " ") {
-                return false
+                if (logicalBoard[i][j] === players.EMPTY) {
+                    return false;
+                }
             }
         }
         return true;
-    }
+    };
 
     let switchPlayer = () => {
         gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.O : players.X;
-    }
+    };
+
 
     startButton.addEventListener("click", resetGame);
 
     function resetGame() {
-        for (i = 0; i < 9; i++) {
-            gameBoard.board[i].textContent = " ";
-        }
+        logicalBoard = [
+            [players.EMPTY, players.EMPTY, players.EMPTY,],
+            [players.EMPTY, players.EMPTY, players.EMPTY,],
+            [players.EMPTY, players.EMPTY, players.EMPTY,],
+        ] ;
+
         gameBoard.currentPlayer = players.X;
         gameBoard.gameOver = false;
-
+        displayBoard();
+        console.log("Game board cleared and reset! Players X's turn.");
     }
 
+    function tileListeners() {
+        for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+                (function(row, col) {
+                    gameBoard.htmlTiles[row][col].addEventListener('click', () => makeYourMove(row, col));
+                })(r, c);
+            }
+        }
+    }
 
-
-    let makeYourMove = (row, col) => {
+    const makeYourMove = (row, col) => {
         if (gameBoard.gameOver) {
             console.log("Game over. Call game.beginGame() to start again.");
             return;
@@ -128,12 +154,12 @@ const game = (function () {
             return;
         }
 
-        if (gameBoard.board[row][col] !== ' ') {
+        if (gameBoard.htmlTiles[row][col] !== ' ') {
             console.log(`Spot (${row}, ${col} ) is already taken. Please choose an empty spot.`);
             return;
         }
 
-        gameBoard.board[row][col] = gameBoard.currentPlayer;
+        gameBoard.htmlTiles[row][col] = gameBoard.currentPlayer;
         displayBoard();
 
         if (checkWin()) {
