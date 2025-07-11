@@ -5,37 +5,77 @@
 }
 
 body {
-    background-color: rgb(115, 118, 115);
     height: 80vh;
     color: white;
-      background-color: #666666;
+    background-color: #9c9999;
     background-clip: text;
     -webkit-background-clip: text;
-    color:#f0f0f0;
+    color: #f0f0f0;
     text-shadow: 1px 1px 3px #555555;
+    font-family: 'Spicy Rice', sans-serif;
 }
 
 #content {
-    background-color: #cba367;
+    /* background-color: #cba367; */
     margin: auto;
-    width: 70%;
+    width: 50%;
     height: 10%;
-    border: 0.3rem solid #bf8f46;
+    /* border: 0.3rem solid #a3752f; */
     margin-top: 1rem;
     text-align: center;
 }
 
-.message {
-    /* background-color: #666666;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color:#f0f0f0;
-    text-shadow: 1px 1px 3px #555555; */
-    font-size: 1.8rem;
-    font-weight: bolder;
+#message {
+    color: #eca233 ;
+    font-size: 1.9rem;
     font-style: italic;
     width: 100%;
-    padding: 0.5rem;
+    /* padding: 0.2rem; */
+}
+
+#main {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    text-align: center;
+}
+
+#game-tally {
+    display: grid;
+    background-color: rgb(179, 160, 98);
+    width: 12rem;
+    height: 30rem;
+    padding: 2rem;
+    grid-column: 1 / 2;
+    margin: auto;
+    grid-template-rows: repeat(1fr * 5);
+    border-radius: 1rem 4rem 1rem;
+    border: 0.3rem solid #a3752f;
+}
+
+/* .tally {
+    width: 7rem;
+    height: 3rem;
+    color: rgb(225, 220, 220);
+    font-size: 1.3rem;
+    border-radius: 0.5rem 0.5rem;
+    background: radial-gradient(circle at 2rem 2rem, #a1e355, #559e02);
+    box-shadow: inset 0px 2px 0px #b2f17f, 0px 6px 0px #3d6f0d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+.tally {
+    width: 8rem;
+    height: 4rem;
+    color: rgb(225, 220, 220);
+    font-size: 1.7rem;
+    border-radius: 0.5rem 0.5rem;
+    	box-shadow: inset 0px 5px 0px #b2f17f, inset 0px -5px 0px #3d6f0d;
+	/* background: rgb(44,160,202); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .section {
@@ -46,8 +86,8 @@ body {
     border-radius: 2rem;
     background-color: rgb(169, 164, 145);
     margin: auto;
-    margin-top: 1rem;
     margin-bottom: 0.7rem;
+    grid-column: 2 / 3;
 }
 
 .display-board {
@@ -57,18 +97,18 @@ body {
     border-style: solid;
     border-image-slice: 1;
     border-image-source: linear-gradient(to left,
-    rgb(52, 100, 49),
-    rgb(81, 118, 86));
-    
+            rgb(52, 100, 49),
+            rgb(81, 118, 86));
+
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
+
     border-radius: 0.4rem;
     background-color: rgb(81, 118, 86);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 0.4rem;
-    
+
 }
 
 .tile {
@@ -82,11 +122,20 @@ body {
     text-align: center;
 }
 
+#game-name {
+    margin: auto;
+    font-size: 7rem;
+    grid-column: 3 / 4;
+    font-style: italic;
+    color: rgb(143, 207, 47);
+     text-shadow: 1px 1px 3px #26331c;
+}
+
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(1fr);
-    
+
 }
 
 #start {
@@ -99,9 +148,10 @@ body {
     margin: auto;
     background: radial-gradient(circle at 2rem 2rem, #7fc384, #000);
     font-size: 2rem;
-    font-weight: bolder;
     border: 0.2rem solid #987747;
     grid-column: 1 / 2;
+    font-family: 'Spicy Rice', sans-serif;
+
 }
 
 #clear {
@@ -114,9 +164,10 @@ body {
     margin: auto;
     background: radial-gradient(circle at 2rem 2rem, #f3e5c9, #000);
     font-size: 2rem;
-    font-weight: bolder;
     border: 0.2rem solid #987747;
-    grid-column: 3 / 4 ;
+    grid-column: 3 / 4;
+    font-family: 'Spicy Rice', sans-serif;
+
 }
 
 
@@ -130,6 +181,7 @@ body {
     border: 0.5rem solid #987747;
     grid-column: 2 / 3;
 }
+
 .heading {
     padding-bottom: 0.4rem;
     font-size: 1.8rem;
@@ -141,28 +193,34 @@ table {
 }
 
 .titles {
-    font-size: 1.4rem;    
+    font-size: 1.4rem;
 }
 
 .titles :last-child {
     float: right;
 }
 
-#player1, #player2 {
+#player1,
+#player2 {
     padding: 0.4rem;
     font-size: 1.2rem;
     background-color: #e7c99c;
-    width: 12rem;
+    width: 14rem;
     border: 0.1rem solid #987747;
 }
 
-.win1, .win2, .loss1, .loss2 {
+#win1,
+#win2,
+#loss1,
+#loss2 {
     padding: 0.4rem;
     font-size: 1.2rem;
-    background-color:rgb(202, 164, 124);
+    background-color: rgb(202, 164, 124);
     width: 4rem;
     height: 2.4rem;
     border: 0.1rem solid #987747;
+    text-align: center;
+    color: #000;
 }
 
 .total {
@@ -170,11 +228,9 @@ table {
     padding: 0.4rem;
     font-size: 1.2rem;
     color: rgb(81, 80, 80);
-    background-color:#bf9b7ba0;
+    background-color: #bf9b7ba0;
     width: 5rem;
     height: 2.4rem;
     border: 0.1rem solid #987747;
+    text-align: center;
 }
-
-
-
