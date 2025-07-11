@@ -1,4 +1,5 @@
 let boardElement = document.getElementsByClassName("display-board");
+let message = document.getElementById("message");
 let tile = document.getElementsByClassName("tile");
 const tileRow1 = document.getElementsByClassName("row1");
 const tileRow2 = document.getElementsByClassName("row2");
@@ -6,7 +7,15 @@ const tileRow3 = document.getElementsByClassName("row3");
 let player1 = document.getElementById("player1");
 let player2 = document.getElementById("player2");
 let startButton = document.getElementById("start");
-let message = document.getElementById("message");
+let winPlayer1 = document.getElementById("win1");
+let lossesPlayer1 = document.getElementById("loss1");
+let winPlayer2 = document.getElementById("win2");
+let lossesPlayer2 = document.getElementById("loss2");
+let totalScore1 = document.getElementById("total1");
+let totalScore2 = document.getElementById("total2");
+
+// winPlayer1.textContent = "now";
+
 // let score_board = document.getElementsByClassName("scoreboard");
 
 player1.addEventListener("click", player1_name);
@@ -17,7 +26,7 @@ function player1_name() {
     if (person1 == null || person1 === "") {
         alert("cancelled");
     } else {
-        player1.value = person1;
+        player1.value = person1 +" " + "❌";
     }
 }
 
@@ -26,11 +35,9 @@ function player2_name() {
     if (person2 == null || person2 === "") {
         alert("cancelled");
     } else {
-        player2.value = person2;
+        player2.value = person2 +" " + "🟣";
     }
 }
-
-// let wins1 = document.createElement("ul");
 
 let players = {
     X: '❌',
@@ -138,10 +145,10 @@ const game = (function () {
             return;
         }
 
-        if (isNaN(row) || isNaN(col) || row < 0 || row > 2 || col < 0 || col > 2) {
-            console.error("Invalid input. Please enter a row or column number between 0 and 2.");
-            return;
-        }
+        // if (isNaN(row) || isNaN(col) || row < 0 || row > 2 || col < 0 || col > 2) {
+        //     console.error("Invalid input. Please enter a row or column number between 0 and 2.");
+        //     return;
+        // }
 
         if (logicalBoard[row][col] !== players.EMPTY) {
             console.log(`Spot (${row}, ${col} ) is already taken. Please choose an empty spot.`);
