@@ -22,8 +22,8 @@ let nextGame = document.getElementById("next-game");
 
 // let score_board = document.getElementsByClassName("scoreboard");
 
-player1.addEventListener("click", player1_name);
-player2.addEventListener("click", player2_name);
+// player1.addEventListener("click", player1_name);
+// player2.addEventListener("click", player2_name);
 
 function player1_name() {
     let person1 = prompt("Enter name for player 1", "Player 1");
