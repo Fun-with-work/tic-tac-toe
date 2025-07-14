@@ -1,5 +1,11 @@
 let boardElement = document.getElementsByClassName("display-board");
 let message = document.getElementById("message");
+let tally = document.getElementsByClassName("tally");
+// let tally1 = document.getElementById("tally1");
+// let tally2 = document.getElementById("tally2");
+// let tally3 = document.getElementById("tally3");
+// let tally4 = document.getElementById("tally4");
+// let tally5 = document.getElementById("tally5");
 let tile = document.getElementsByClassName("tile");
 const tileRow1 = document.getElementsByClassName("row1");
 const tileRow2 = document.getElementsByClassName("row2");
@@ -8,13 +14,11 @@ let player1 = document.getElementById("player1");
 let player2 = document.getElementById("player2");
 let startButton = document.getElementById("start");
 let winPlayer1 = document.getElementById("win1");
-let lossesPlayer1 = document.getElementById("loss1");
 let winPlayer2 = document.getElementById("win2");
-let lossesPlayer2 = document.getElementById("loss2");
+// let lossesPlayer2 = document.getElementById("loss2");
 let totalScore1 = document.getElementById("total1");
 let totalScore2 = document.getElementById("total2");
-
-// winPlayer1.textContent = "now";
+let nextGame = document.getElementById("next-game");
 
 // let score_board = document.getElementsByClassName("scoreboard");
 
@@ -26,7 +30,7 @@ function player1_name() {
     if (person1 == null || person1 === "") {
         alert("cancelled");
     } else {
-        player1.value = person1 +" " + "❌";
+        player1.value = person1 + " " + "❌";
     }
 }
 
@@ -35,15 +39,22 @@ function player2_name() {
     if (person2 == null || person2 === "") {
         alert("cancelled");
     } else {
-        player2.value = person2 +" " + "🟣";
+        player2.value = person2 + " " + "🟣";
     }
 }
 
 let players = {
     X: '❌',
     O: '🟣',
+    w1: 0,
+    w2: 0,
+    winPlayer1: 'w1',
+    winPlayer2: 'w1',
     EMPTY: ' ',
 };
+
+winPlayer1.textContent = players.w1;
+winPlayer2.textContent = players.w2;
 
 const game = (function () {
     let logicalBoard = [
@@ -69,8 +80,6 @@ const game = (function () {
                 gameBoard.htmlTiles[r][c].textContent = logicalBoard[r][c];
             }
         }
-
-      
     };
 
     const checkWin = () => {
@@ -78,6 +87,13 @@ const game = (function () {
             if (logicalBoard[i][0] === gameBoard.currentPlayer && logicalBoard[i][1] === gameBoard.currentPlayer && logicalBoard[i][2] === gameBoard.currentPlayer &&
                 gameBoard.currentPlayer != players.EMPTY
             ) {
+                alert("Player " + gameBoard.currentPlayer + " is the winner. Press next game to play again.");
+                gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.w1 += 1 : players.w2 += 1;
+                winPlayer1.textContent = players.w1;
+                winPlayer2.textContent = players.w2;
+
+                console.log(players.w1);
+                console.log(players.w2);
                 return true;
             }
         }
@@ -86,6 +102,12 @@ const game = (function () {
             if (logicalBoard[0][j] === gameBoard.currentPlayer && logicalBoard[1][j] === gameBoard.currentPlayer && logicalBoard[2][j] === gameBoard.currentPlayer &&
                 gameBoard.currentPlayer != players.EMPTY
             ) {
+                alert("Player " + gameBoard.currentPlayer + " is the winner. Press next game to play again.");
+                gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.w1 += 1 : players.w2 += 1;
+                winPlayer1.textContent = players.w1;
+                winPlayer2.textContent = players.w2;
+                console.log(players.w1);
+                console.log(players.w2);
                 return true;
             }
         }
@@ -94,9 +116,14 @@ const game = (function () {
             (logicalBoard[0][0] === gameBoard.currentPlayer && logicalBoard[1][1] === gameBoard.currentPlayer && logicalBoard[2][2] === gameBoard.currentPlayer && gameBoard.currentPlayer != players.EMPTY) ||
             (logicalBoard[0][2] === gameBoard.currentPlayer && logicalBoard[1][1] === gameBoard.currentPlayer && logicalBoard[2][0] === gameBoard.currentPlayer && gameBoard.currentPlayer != players.EMPTY)
         ) {
+            alert("Player " + gameBoard.currentPlayer + " is the winner. Press next game to play again.");
+            gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.w1 += 1 : players.w2 += 1;
+            winPlayer1.textContent = players.w1;
+            winPlayer2.textContent = players.w2;
+            console.log(players.w1);
+            console.log(players.w2);
             return true;
         }
-
         return false;
     };
 
@@ -109,7 +136,9 @@ const game = (function () {
                 }
             }
         }
+        alert("The game is a tie. Press next game to play again.");
         return true;
+
     };
 
     let switchPlayer = () => {
@@ -180,6 +209,8 @@ const game = (function () {
     startButton.addEventListener("click", startGame);
     startButton.addEventListener("click", player1_name);
     startButton.addEventListener("click", player2_name);
+
+    nextGame.addEventListener("click", startGame);
 
 
     return {
