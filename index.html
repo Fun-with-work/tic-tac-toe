@@ -14,10 +14,10 @@
 
 <body>
     <div id="content">
-        <p id="message">A set of five games. Press start to begin</p>
+        <p id="message">Play a set of five games. Press start to begin</p>
     </div>
     <div id="main">
-        <div id="game-tally"><!--  -->
+        <div id="game-tally">
             <p id="tally1" class="tally">game 1</p>
             <p id="tally2" class="tally">game 2</p>
             <p id="tally3" class="tally">game 3</p>
@@ -39,39 +39,29 @@
         </div>
         <div id="game-name">Tic<br>Tac<br>Toe</div>
     </div>
-
     <div class="container">
         <button id="start">Start</button>
         <div class="scoreboard">
-            <!-- <h4 class="heading">Scoreboard</h4> -->
             <table>
                 <tr class="titles">
                     <td>Player names</td>
                     <td>Wins</td>
-                    <td>Losses</td>
-                    <td>Total Wins</td>
                 </tr>
                 <tr>
                     <td>
                         <input type="text" id="player1" name="player1" placeholder="click to add player 1  ❌">
                     </td>
-                    <td id="win1" class="scores">0</td>
-                    <td id="loss1" class="scores">0</td>
-                    <td id="total1" class="total">Total</td>
+                    <td id="win1" class="scores"></td>
                 </tr>
                 <tr>
                     <td>
                         <input type="text" id="player2" name="player2" placeholder="click to add player 2  🟣">
                     </td>
-                    <td id="win2" class="scores">0</td>
-                    <td id="loss2" class="scores">0</td>
-                    <td id="total2" class="total">Total</td>
+                    <td id="win2" class="scores"></td>
                 </tr>
             </table>
-
         </div>
-        <button id="clear">next game</button>
-
+        <button id="next-game">next game</button>
     </div>
 </body>
 
