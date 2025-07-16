@@ -22,9 +22,6 @@ let nextGame = document.getElementById("next-game");
 
 // let score_board = document.getElementsByClassName("scoreboard");
 
-// player1.addEventListener("click", player1_name);
-// player2.addEventListener("click", player2_name);
-
 function player1_name() {
     let person1 = prompt("Enter name for player 1", "Player 1");
     if (person1 == null || person1 === "") {
@@ -87,13 +84,14 @@ const game = (function () {
             if (logicalBoard[i][0] === gameBoard.currentPlayer && logicalBoard[i][1] === gameBoard.currentPlayer && logicalBoard[i][2] === gameBoard.currentPlayer &&
                 gameBoard.currentPlayer != players.EMPTY
             ) {
-                alert("Player " + gameBoard.currentPlayer + " is the winner. Press next game to play again.");
+                message.textContent = ("Player " + gameBoard.currentPlayer + " is the winner. Press next game to play again.");
                 gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.w1 += 1 : players.w2 += 1;
                 winPlayer1.textContent = players.w1;
                 winPlayer2.textContent = players.w2;
 
                 console.log(players.w1);
                 console.log(players.w2);
+                if (players.w1 > 2) (message.textContent = ("GAME ENDED. Player " + gameBoard.currentPlayer + " has won this set. Press start to play a new set of games."));
                 return true;
             }
         }
@@ -102,7 +100,7 @@ const game = (function () {
             if (logicalBoard[0][j] === gameBoard.currentPlayer && logicalBoard[1][j] === gameBoard.currentPlayer && logicalBoard[2][j] === gameBoard.currentPlayer &&
                 gameBoard.currentPlayer != players.EMPTY
             ) {
-                alert("Player " + gameBoard.currentPlayer + " is the winner. Press next game to play again.");
+                message.textContent = ("Player " + gameBoard.currentPlayer + " is the winner. Press next game to play again.");
                 gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.w1 += 1 : players.w2 += 1;
                 winPlayer1.textContent = players.w1;
                 winPlayer2.textContent = players.w2;
@@ -116,7 +114,7 @@ const game = (function () {
             (logicalBoard[0][0] === gameBoard.currentPlayer && logicalBoard[1][1] === gameBoard.currentPlayer && logicalBoard[2][2] === gameBoard.currentPlayer && gameBoard.currentPlayer != players.EMPTY) ||
             (logicalBoard[0][2] === gameBoard.currentPlayer && logicalBoard[1][1] === gameBoard.currentPlayer && logicalBoard[2][0] === gameBoard.currentPlayer && gameBoard.currentPlayer != players.EMPTY)
         ) {
-            alert("Player " + gameBoard.currentPlayer + " is the winner. Press next game to play again.");
+            message.textContent = ("Player " + gameBoard.currentPlayer + " is the winner. Press next game to play again.");
             gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.w1 += 1 : players.w2 += 1;
             winPlayer1.textContent = players.w1;
             winPlayer2.textContent = players.w2;
@@ -146,6 +144,7 @@ const game = (function () {
     };
 
     function resetGame() {
+        tally.textContent = "gameBoard.currentPlayer";
         logicalBoard = [
             [players.EMPTY, players.EMPTY, players.EMPTY,],
             [players.EMPTY, players.EMPTY, players.EMPTY,],
@@ -154,6 +153,7 @@ const game = (function () {
 
         gameBoard.currentPlayer = players.X;
         gameBoard.gameOver = false;
+        message.textContent = ("Playing the next game. To play a new set, press start");
         displayBoard();
         console.log("Game board cleared and reset! Players X's turn.");
     }
@@ -173,11 +173,6 @@ const game = (function () {
             console.log("Game over. Call game.beginGame() to start again.");
             return;
         }
-
-        // if (isNaN(row) || isNaN(col) || row < 0 || row > 2 || col < 0 || col > 2) {
-        //     console.error("Invalid input. Please enter a row or column number between 0 and 2.");
-        //     return;
-        // }
 
         if (logicalBoard[row][col] !== players.EMPTY) {
             console.log(`Spot (${row}, ${col} ) is already taken. Please choose an empty spot.`);
@@ -206,12 +201,25 @@ const game = (function () {
         console.log(`Game started! Player ${gameBoard.currentPlayer}'s turn.`);
     }
 
+    function clearScore() {
+       winPlayer1.textContent = 0; 
+       winPlayer2.textContent = 0; 
+    }
+
     startButton.addEventListener("click", startGame);
     startButton.addEventListener("click", player1_name);
     startButton.addEventListener("click", player2_name);
+    startButton.addEventListener("click", clearScore);
 
-    nextGame.addEventListener("click", startGame);
+    // nextGame.addEventListener("click", startGame);
 
+       nextGame.addEventListener("click", newGame);
+
+        function newGame (){
+            if (players.w1>2) {message.textContent =("GAME ENDED. Player " + gameBoard.currentPlayer + " has won this set. Press start to play a new set of games.")   
+        } else if (players.w2>2) {message.textContent =("GAME ENDED. Player " + gameBoard.currentPlayer + " has won this set. Press start to play a new set of games.")  
+        } else
+         startGame(); 
 
     return {
         startGame: startGame,
@@ -219,4 +227,4 @@ const game = (function () {
 
     };
 
-})();
+}})();
