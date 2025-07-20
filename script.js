@@ -20,9 +20,7 @@ let totalScore1 = document.getElementById("total1");
 let totalScore2 = document.getElementById("total2");
 let nextGame = document.getElementById("next-game");
 
-let originalGameTally = [];
-
-originalGameTally = gameTallyDisplays;
+let originalGameTally = ["game 1", "game 2", "game 3", "game 4", "game 5"];
 
 let players = {
     X: '❌',
@@ -57,7 +55,6 @@ function player2_name() {
     }
 }
 
-
 const game = (function () {
     let logicalBoard = [
         [players.EMPTY, players.EMPTY, players.EMPTY,],
@@ -80,7 +77,7 @@ const game = (function () {
         setOver: false,
     };
 
-    displayBoard = () => {
+    const displayBoard = () => {
         for (let r = 0; r < 3; r++) {
             for (let c = 0; c < 3; c++) {
                 gameBoard.htmlTiles[r][c].textContent = logicalBoard[r][c];
@@ -89,29 +86,18 @@ const game = (function () {
     };
 
     const updateTallyDisplay = () => {
-        for (let i = 0; i < gameTallyDisplays.length; i++) {
+        for (i = 0; i < gameTallyDisplays.length; i++) {
             if (gameTallyDisplays[i]) {
-                gameTallyDisplays = originalGameTally;
-                gameTallyDisplays[i].style.fontWeight = 'normal';
-                // gameTallyDisplays[i].style.color = 'black';
-            }
-        }
-
-        for (i = 0; i < gameResults.length; i++) {
-            if (gameTallyDisplays[i]) {
-                gameTallyDisplays[i].textContent = gameResults[i];
-                gameTallyDisplays[i].style.fontWeight = 'bold';
-                if (gameResults[i] === players.X) {
-                    gameTallyDisplays[i].style.color = 'red';
-                } else if (gameResults[i] === players.O) {
-                    gameTallyDisplays[i].style.color = 'purple';
+                if (gameResults[i]) {
+                    gameTallyDisplays[i].textContent = gameResults[i];
+                } else {
+                    gameTallyDisplays[i].textContent = originalGameTally[i];
                 }
             }
         }
 
-        console.log("Game Results:", gameResults);
-        console.log("Player X wins:", players.w1);
-        console.log("Player O wins:", players.w2);
+        winPlayer1.textContent = players.w1;
+        winPlayer2.textContent = players.w2;
     };
 
     const checkWin = () => {
@@ -137,7 +123,10 @@ const game = (function () {
             } else {
                 players.w2 += 1;
             }
+
             updateTallyDisplay();
+            gameBoard.gameOver = true;
+
             if (currentGameNumber < gameTallyDisplays.length - 1) {
                 currentGameNumber++;
             }
@@ -149,200 +138,114 @@ const game = (function () {
             }
             if (players.w1 >= 3) {
                 message.textContent = ` GAME ENDED. Player ${players.playerXName} has won this set. Press start to play a new set of games.`;
+                gameBoard.setOver = true;
             } else if (players.w2 >= 3) {
                 message.textContent = `GAME ENDED. Player ${players.playerOName} has won this set. Press start to play a new set of games.`;
+                gameBoard.setOver = true;
             }
             return true;
         }
-    // }
 
-    // for (let i = 0; i < 3; i++) {
-    //     if (logicalBoard[i][0] === winningPlayer && logicalBoard[i][1] === winningPlayer && logicalBoard[i][2] === winningPlayer && winningPlayer != players.EMPTY
-    //     ) ||  (logicalBoard[0][i] === winningPlayer && logicalBoard[1][i] === winningPlayer && logicalBoard[2][i] === winningPlayer && winningPlayer != players.EMPTY
-    //     )
-    // {
-    //     const winnerName = (winningPlayer === players.X) ? players.playerXName : players.playerOName;
-    //     message.textContent = `Player ${winnerName} ${winningPlayer} is the winner. Press next game to play again.`;
-    //     gameResults[currentGameNumber] = winningPlayer;
-    //     if (winningPlayer === players.X) {
-    //         players.w1 += 1;
-    //     } else {
-    //         players.w2 += 1
-    //     }
-    //     updateTallyDisplay();
-    //         if (currentGameNumber < gameTallyDisplays.length - 1) {
-    //             currentGameNumber++;
-    //         }
-    //         winPlayer1.textContent = players.w1;
-    //         winPlayer2.textContent = players.w2;
-    //         if (gameResults.length >= gameTallyDisplays.length || players.w1 >= 3 || players.w2 >= 3) {
-    //             gameBoard.setOver = true;
-    //         }
-    //         if (players.w1 >= 3) {
-    //             message.textContent = `GAME ENDED. Player ${players.playerXName} has won this set. Press start to play a new set of games.`
-    //             gameBoard.gameOver = true;
-    //         } else if (players.w2 >= 3) {
-    //             message.textContent = `GAME ENDED. Player ${players.playerOName} has won this set. Press start to play a new set of games.`
-    //             gameBoard.gameOver = true;
-    //         }
-    //         return true;
-    //     }
-    // }
+        return false;
+    };
 
-    // for (let j = 0; j < 3; j++) {
-    //     if (logicalBoard[0][j] === winningPlayer && logicalBoard[1][j] === winningPlayer && logicalBoard[2][j] === winningPlayer && winningPlayer != players.EMPTY) {
-    //         const winnerName = (winningPlayer === players.X) ? players.playerXName : players.playerOName;
-    //         message.textContent = `Player ${winnerName} ${winningPlayer} is the winner. Press next game to play again.`;
-    //         gameResults[currentGameNumber] = winningPlayer;
-    //         if (winningPlayer === players.X) {
-    //             players.w1 += 1;
-    //         } else {
-    //             players.w2 += 1
-    //         }
-    //         updateTallyDisplay();
+    const checkDraw = () => {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
 
-    //         winPlayer1.textContent = players.w1;
-    //         winPlayer2.textContent = players.w2;
+                if (logicalBoard[i][j] === players.EMPTY) {
+                    return false;
+                }
+            }
+        }
+        message.textContent = ("The game is a tie. Press next game to play again.");
+        gameBoard.gameOver = true;
+    };
 
-    //         if (players.w1 >= 3) {
-    //             message.textContent = `GAME ENDED. Player ${players.playerXName} has won this set. Press start to play a new set of games.`;
-    //             gameBoard.gameOver = true;
-    //         } else if (players.w2 >= 3) {
-    //             message.textContent = `GAME ENDED. ${players.playerOName} is the winner. Press next game to play again.`;
-    //             gameResults[currentGameNumber] = winningPlayer;
-    //             gameBoard.gameOver = true;
-    //         }
-    //         return true;
-    //     }
-    // }
+    let switchPlayer = () => {
+        gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.O : players.X;
+    };
 
-    // if ((logicalBoard[0][0] === gameBoard.currentPlayer && logicalBoard[1][1] === winningPlayer && logicalBoard[2][2] === winningPlayer && winningPlayer != players.EMPTY) ||
-    //     (logicalBoard[0][2] === winningPlayer && logicalBoard[1][1] === winningPlayer && logicalBoard[2][0] === winningPlayer && winningPlayer != players.EMPTY)
-    // ) {
-    //     const winnerName = (winningPlayer === players.X) ? players.playerXName : players.playerOName;
-    //     message.textContent = `Player ${winnerName} ${winningPlayer} is the winner. Press next game to play again.`;
-    //     gameResults[currentGameNumber] = winningPlayer;
-    //     if (winningPlayer === players.X) {
-    //         players.w1 += 1;
-    //     } else {
-    //         players.w2 += 1
-    //     }
-    //     updateTallyDisplay();
+    function resetGame() {
+        logicalBoard = [
+            [players.EMPTY, players.EMPTY, players.EMPTY,],
+            [players.EMPTY, players.EMPTY, players.EMPTY,],
+            [players.EMPTY, players.EMPTY, players.EMPTY,],
+        ];
+        gameBoard.currentPlayer = players.X;
+        gameBoard.gameOver = false;
+        message.textContent = ("Playing the next game. To play a new set, press start");
+        displayBoard();
+    }
 
-    //     winPlayer1.textContent = players.w1;
-    //     winPlayer2.textContent = players.w2;
-
-    //     if (players.w1 >= 3) {
-    //         message.textContent = `GAME ENDED. Player ${players.playerXName} has won this set. Press start to play a new set of games.`;
-    //         gameBoard.gameOver = true;
-    //     } else if (players.w2 >= 3) {
-    //         message.textContent = `GAME ENDED. Player ${players.playerOName} has won this set. Press start to play again.`;
-    //         gameBoard.gameOver = true;
-    //     }
-    //     return true;
-    // }
-    return false;
-};
-
-const checkDraw = () => {
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-
-            if (logicalBoard[i][j] === players.EMPTY) {
-                return false;
+    function tileListeners() {
+        for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+                (function (row, col) {
+                    gameBoard.htmlTiles[row][col].addEventListener('click', () => makeYourMove(row, col));
+                })(r, c);
             }
         }
     }
-    message.textContent = ("The game is a tie. Press next game to play again.");
-    gameBoard.gameOver = true;
 
-};
+    const makeYourMove = (row, col) => {
+        if (gameBoard.gameOver) {
+            message.textContent = "Game over. Press the start button to play again.";
+            return;
+        }
 
-let switchPlayer = () => {
-    gameBoard.currentPlayer = (gameBoard.currentPlayer === players.X) ? players.O : players.X;
-};
+        if (logicalBoard[row][col] !== players.EMPTY) {
+            message.textContent = (`This spot is already taken. Please choose an empty spot.`);
+            return;
+        }
 
-function resetGame() {
-    logicalBoard = [
-        [players.EMPTY, players.EMPTY, players.EMPTY,],
-        [players.EMPTY, players.EMPTY, players.EMPTY,],
-        [players.EMPTY, players.EMPTY, players.EMPTY,],
-    ];
-    gameBoard.currentPlayer = players.X;
-    gameBoard.gameOver = false;
-    message.textContent = ("Playing the next game. To play a new set, press start");
-    displayBoard();
-    console.log("Game board cleared and reset! Players X's turn.");
-}
+        logicalBoard[row][col] = gameBoard.currentPlayer;
+        displayBoard();
 
-function tileListeners() {
-    for (let r = 0; r < 3; r++) {
-        for (let c = 0; c < 3; c++) {
-            (function (row, col) {
-                gameBoard.htmlTiles[row][col].addEventListener('click', () => makeYourMove(row, col));
-            })(r, c);
+        if (checkWin()) {
+            gameBoard.gameOver = true;
+        } else if (checkDraw()) {
+            gameBoard.gameOver = true;
+        } else {
+            switchPlayer();
+            message.textContent = `It's Player ${gameBoard.currentPlayer}'s turn`;
+        }
+    };
+
+    function startGame() {
+        winPlayer1.textContent = 0;
+        winPlayer2.textContent = 0;
+        players.w1 = 0;
+        players.w2 = 0;
+        gameResults = [];
+        currentGameNumber = 0;
+        gameBoard.gameOver = false;
+        gameBoard.setOver = false;
+        updateTallyDisplay();
+        resetGame();
+        tileListeners();
+        message.textContent = `Game started! It's player ${gameBoard.currentPlayer}'s turn.`;
+    }
+
+    startButton.addEventListener("click", startGame);
+    startButton.addEventListener("click", player1_name);
+    startButton.addEventListener("click", player2_name);
+
+    nextGame.addEventListener("click", newGame);
+
+    function newGame() {
+        if (gameBoard.setOver) {
+            message.textContent = "The set is over! Press 'Start' to play a new set of games.";
+            return;
+        }
+
+        else if (!gameBoard.gameOver) {
+            message.textContent = "Current game is not finished yet! Finish the current game before proceeding.";
+            return;
+        }
+
+        else if (gameBoard.gameOver) {
+            resetGame();
         }
     }
-}
-
-const makeYourMove = (row, col) => {
-    if (gameBoard.gameOver) {
-        console.log("Game over. Call game.beginGame() to start again.");
-        return;
-    }
-
-    if (logicalBoard[row][col] !== players.EMPTY) {
-        console.log(`Spot (${row}, ${col} ) is already taken. Please choose an empty spot.`);
-        return;
-    }
-
-    logicalBoard[row][col] = gameBoard.currentPlayer;
-    displayBoard();
-
-    if (checkWin()) {
-        // console.log(`🎉 Player ${gameBoard.currentPlayer} wins! Congratulations! 🎉 `);
-        gameBoard.gameOver = true;
-    } else if (checkDraw()) {
-        // console.log("It's a draw! 🤝");
-        gameBoard.gameOver = true;
-    } else {
-        switchPlayer();
-        message.textContent = `It's Player ${gameBoard.currentPlayer}'s turn`;
-    }
-};
-
-function startGame() {
-    winPlayer1.textContent = 0;
-    winPlayer2.textContent = 0;
-    players.w1 = 0;
-    players.w2 = 0;
-    gameResults = [];
-    currentGameNumber = 0;
-    gameBoard.gameOver = false;
-    updateTallyDisplay();
-    resetGame();
-    tileListeners();
-    message.textContent = `Game started! It's player ${gameBoard.currentPlayer}'s turn.`;
-}
-
-startButton.addEventListener("click", startGame);
-startButton.addEventListener("click", player1_name);
-startButton.addEventListener("click", player2_name);
-
-nextGame.addEventListener("click", newGame);
-
-function newGame() {
-    console.log(currentGameNumber);
-
-    if (players.w1 >= 3 || players.w2 >= 3) {
-        // message.textContent = (`GAME ENDED. Player ${gameBoard.currentPlayer} has won this set. Press start to play a new set of games.`)
-        gameBoard.gameOver = true;
-        // } else if (players.w2 > 2) {
-        //     message.textContent = ("GAME ENDED. Player " + gameBoard.currentPlayer + " has won this set. Press start to play a new set of games.")
-        //     gameBoard.gameOver = true;
-    } else
-        resetGame();
-    // message.textContent = `Playing the next game! It's player ${gameBoard.currentPlayer}'s turn.`;
-}
-    // startGame();
-}) ();
+})();
