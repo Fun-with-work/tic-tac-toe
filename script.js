@@ -32,6 +32,8 @@ let players = {
     EMPTY: ' ',
 };
 
+ 
+
 winPlayer1.textContent = players.w1;
 winPlayer2.textContent = players.w2;
 
@@ -116,7 +118,10 @@ const game = (function () {
 
         if (isWin) {
             const winnerName = (winningPlayer === players.X) ? players.playerXName : players.playerOName;
-            message.textContent = `Player ${winnerName} ${winningPlayer} is the winner! Press 'Next Game' to continue.`;
+            
+            const winnerColor = (winningPlayer === players.X) ? '#f7485e' : 'purple';
+            message.innerHTML = `<span style= "color: ${winnerColor};"> ${winnerName}  ${winningPlayer} is the winner!</span> Press 'Next Game' to continue.`;
+
             gameResults[currentGameNumber] = winningPlayer;
             if (winningPlayer === players.X) {
                 players.w1 += 1;
@@ -137,10 +142,10 @@ const game = (function () {
                 gameBoard.gameOver = true;
             }
             if (players.w1 >= 3) {
-                message.textContent = ` GAME ENDED. Player ${players.playerXName} has won this set. Press start to play a new set of games.`;
+                message.innerHTML = `GAME ENDED. <span style= "color: ${winnerColor};"> ${players.playerXName} ${players.X} has won this set.</span> Press start to play a new set of games.`;
                 gameBoard.setOver = true;
             } else if (players.w2 >= 3) {
-                message.textContent = `GAME ENDED. Player ${players.playerOName} has won this set. Press start to play a new set of games.`;
+                message.innerHTML = `GAME ENDED. <span style= "color: ${winnerColor};"> ${players.playerOName} ${players.O} has won this set.</span> Press start to play a new set of games.`;
                 gameBoard.setOver = true;
             }
             return true;
@@ -208,7 +213,7 @@ const game = (function () {
             gameBoard.gameOver = true;
         } else {
             switchPlayer();
-            message.textContent = `It's Player ${gameBoard.currentPlayer}'s turn`;
+            message.textContent = `It's  ${gameBoard.currentPlayer}'s turn`;
         }
     };
 
@@ -224,7 +229,7 @@ const game = (function () {
         updateTallyDisplay();
         resetGame();
         tileListeners();
-        message.textContent = `Game started! It's player ${gameBoard.currentPlayer}'s turn.`;
+        message.textContent = `Game started! It's ${gameBoard.currentPlayer}'s turn.`;
     }
 
     startButton.addEventListener("click", startGame);
